@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Bank account info{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<h3>Bank account info</h3>
+<form method='post'>
+{% csrf_token %}
+{{ form|crispy }}
+<button type='submit' class='btn btn-outline-primary'>Confirm</button>
+
+</form>
+
+{% endblock %}

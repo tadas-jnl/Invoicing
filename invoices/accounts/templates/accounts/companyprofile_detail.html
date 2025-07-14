@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Company profile{% endblock %}
+{% block content %}
+<a href="{% url 'accounts:cprofile_update' %}" class="btn btn-outline-primary mb-3">Update profile</a>
+<a href="{% url 'accounts:bank' %}" class="btn btn-outline-primary mb-3">Update bank account</a>
+<h3 class="my-3">{{ object.name}} profile</h3> 
+
+{% for label, value in fields %}
+    <p><strong>{{ label|capfirst }}</strong>: {{ value }}
+{% endfor %}
+    <h4>Bank Account info:</h4>
+    <p><strong>IBAN:</strong> {{ bank_account.iban }}</p>
+    <p><strong>Bank Name:</strong> {{ bank_account.bank_name }}</p>
+    <p><strong>SWIFT:</strong> {{ bank_account.swift }}</p>
+{% endblock %}

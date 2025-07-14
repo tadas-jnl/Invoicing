@@ -22,10 +22,11 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
-    
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    is_company = models.BooleanField(default=False) #True = company, False = individual
+    is_company = models.BooleanField(verbose_name='Are you a company or individual?', default=False) #True = company, False = individual
     is_staff = models.BooleanField(default=False) #allows login on admin site
     is_active = models.BooleanField(default=True) #allows soft ban without delete user
     USERNAME_FIELD = 'email'
@@ -36,12 +37,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-#create base profile for company and individual
+
 class BaseProfile(models.Model):
     address = models.CharField(max_length=100)
-    phone = models.CharField(max_length=15, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-    web = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(verbose_name='Contact phone', max_length=15, null=True, blank=True)
+    email = models.EmailField(verbose_name='Contact email', null=True, blank=True)
+    web = models.CharField(verbose_name='Web site', max_length=100, null=True, blank=True)
 
     class Meta:
         abstract = True  #don't create separate db table for this. CompanyProfile and IndividualProfile will include fields of this class
@@ -49,18 +50,19 @@ class BaseProfile(models.Model):
 
 class CompanyProfile(BaseProfile):  
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-    company_code = models.CharField(max_length=20)
-    vat_code = models.CharField(max_length=20)
+    name = models.CharField(verbose_name='Company name', max_length=200)
+    company_code = models.CharField(verbose_name='Company code', max_length=20)
+    vat_code = models.CharField(verbose_name='Tax payer code', max_length=20)
 
     def __str__(self):
         return self.name
 
+
 class IndividualProfile(BaseProfile):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    individual_code = models.CharField(max_length=20, null=True, blank=True)
-    vat_code = models.CharField(max_length=20, null=True, blank=True)
+    name = models.CharField(verbose_name='Full name', max_length=100)
+    individual_code = models.CharField('Individual code', max_length=20, null=True, blank=True)
+    vat_code = models.CharField(verbose_name='Tax payer code', max_length=20, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -68,9 +70,9 @@ class IndividualProfile(BaseProfile):
 
 class BankAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bank_name = models.CharField(max_length=20, null=True, blank=True)
-    swift = models.CharField(max_length=10, null=True, blank=True)
-    iban = models.CharField(max_length=20)
+    bank_name = models.CharField(verbose_name='Bank name', max_length=20, null=True, blank=True)
+    swift = models.CharField(verbose_name='Bank code (SWIFT)', max_length=10, null=True, blank=True)
+    iban = models.CharField(verbose_name='iban', max_length=20)
 
     def __str__(self):
         return f"Bank account for user: {self.user.email}"
