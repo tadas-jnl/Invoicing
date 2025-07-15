@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}List Invoices{% endblock %}
+{% block content %}
+<a href="{% url 'billing:create_invoice' %}" class="btn btn-outline-primary my-3">Create New Invoice</a>
+<h3>Your invoices</h3>
+{% for invoice in object_list %}
+    <p>{{ invoice.number }} - {{ invoice.buyer }}. Total: {{ invoice.total }} <a href="{% url 'billing:update_invoice' invoice.pk %}">Edit</a> / <a href="{% url 'billing:delete_invoice' invoice.pk %}" class="text-danger">Delete</a> </p>
+{% endfor %}
+
+{% endblock %}

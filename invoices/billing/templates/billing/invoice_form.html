@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{ var }} invoice{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h3>{{ var }} invoice</h3>
+<form method='post'>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-outline-primary">{{ var }}</button>
+
+</form>
+
+{% endblock %}

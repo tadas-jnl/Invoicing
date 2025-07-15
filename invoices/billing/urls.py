@@ -8,4 +8,8 @@ urlpatterns = [
     path('buyer/<int:pk>/', views.UpdateBuyer.as_view(), name='update_buyer'),
     path('buyer/list/', views.ListBuyers.as_view(), name='list_buyers'),
     path('buyer/<int:pk>/delete/', views.DeleteBuyer.as_view(), name='delete_buyer'),
+    path('invoice/create/', views.CreateInvoice.as_view(), name='create_invoice'),
+    path('invoice/<int:pk>/update/', views.UpdateInvoice.as_view(), name='update_invoice'),
+    path('invoices/', views.ListInvoices.as_view(), name="list_invoices"),
+    path('invoice/<int:pk>/delete/', views.DeleteInvoice.as_view(), name='delete_invoice'),
 ]
