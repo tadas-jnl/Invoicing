@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}List of Buyers{% endblock %}
+{% block content %}
+
+<a href="{% url 'billing:add_buyer' %}" class="btn btn-outline-success my-3">Add Buyer</a>
+{% for buyer in object_list %}
+    <p>{{ buyer.name }} - {{ buyer.code }} <a href="{% url 'billing:update_buyer' buyer.pk %}">Edit</a> / <a href="{% url 'billing:delete_buyer' buyer.pk %}" class="text-danger">Delete</a></p>
+    
+{% endfor %}
+
+{% endblock %}

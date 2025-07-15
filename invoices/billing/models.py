@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 
 # Create your models here.
@@ -37,7 +37,8 @@ class Invoice(models.Model):
         return Decimal("0.00")
 
     def total(self):
-        return self.subtotal() + self.vat_amount()
+        total = self.subtotal() + self.vat_amount()
+        return total.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
     
 
 class InvoiceItem(models.Model):
@@ -51,6 +52,6 @@ class InvoiceItem(models.Model):
         return f"Invoice { self.invoice.number } item: { self.description }: { self.qty } { self.units } x { self.price } Eur"
     
     def line_total(self):
-        return self.qty * self.price
-    
+        total = self.qty * self.price
+        return total.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 

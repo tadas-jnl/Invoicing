@@ -11,5 +11,5 @@ class InvoiceAdmin(admin.ModelAdmin):
     inlines = [InvoiceItemInline]
     list_display = ['number', 'buyer', 'issue_date', 'due_date', 'total']
 
-admin.site.register(Invoice)
+admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Buyer)
