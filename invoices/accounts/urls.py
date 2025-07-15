@@ -12,3 +12,4 @@ urlpatterns = [
     path('iprofile/update/', views.IndividualProfileUpdate.as_view(), name='iprofile_update'),
     path('profile/bank/', views.BankAccountUpdateView.as_view(), name='bank'),
 ]
+
