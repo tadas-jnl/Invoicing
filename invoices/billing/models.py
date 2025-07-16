@@ -22,7 +22,7 @@ class Invoice(models.Model):
     number = models.IntegerField(verbose_name="Invoice number")
     series = models.CharField(verbose_name="Series", max_length=20)
     issue_date = models.DateField(verbose_name="Issue date", default=date.today)
-    due_date = models.DateField(verbose_name="Due date")
+    due_date = models.DateField(verbose_name="Due date", null=True, blank=True)
     include_vat = models.BooleanField(verbose_name="VAT included", default=True)
 
     def __str__(self):

@@ -4,7 +4,7 @@
 <a href="{% url 'billing:create_invoice' %}" class="btn btn-outline-primary my-3">Create New Invoice</a>
 <h3>Your invoices</h3>
 {% for invoice in object_list %}
-    <p>{{ invoice.number }} - {{ invoice.buyer }}. Total: {{ invoice.total }} <a href="{% url 'billing:update_invoice' invoice.pk %}">Edit</a> / <a href="{% url 'billing:delete_invoice' invoice.pk %}" class="text-danger">Delete</a> </p>
+    <p>NO: {{ invoice.number }} - {{ invoice.buyer }}. Total: {{ invoice.total }} <a href="{% url 'billing:detail_invoice' invoice.pk %}">More Details..</a> </p>
 {% endfor %}
 
 {% endblock %}

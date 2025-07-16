@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Buyer, Invoice
+from .models import Buyer, Invoice, InvoiceItem
 
 
 class BuyerForm(ModelForm):
@@ -27,3 +27,11 @@ class InvoiceForm(ModelForm):
                 (False, 'No, VAT not applicable'),
             ]),
         }
+
+
+class InvoiceItemForm(ModelForm):
+    class Meta:
+        model = InvoiceItem
+        fields = ['description', 'units', 'qty', 'price']
+
+

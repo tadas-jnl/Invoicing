@@ -6,7 +6,7 @@
 <form method='post'>
     {% csrf_token %}
     <button type='submit' class='btn btn-danger'>Yes, DELETE</button>
-    <a href='{% url "billing:list_invoices" %}' class='btn btn-outline-primary'>Cancel</a>
+    <a href='{% url "billing:detail_invoice" object.pk %}' class='btn btn-outline-primary'>Cancel</a>
 </form>
 
 {% endblock %}
