@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from weasyprint import HTML
 
 from .forms import BuyerForm, InvoiceForm, InvoiceItemForm
 from .models import Buyer, Invoice, InvoiceItem
@@ -181,3 +184,19 @@ class DeleteInvoiceItem(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     
     def get_success_url(self):
         return reverse('billing:detail_invoice', kwargs={'pk': self.get_invoice().pk})
+    
+
+def generate_invoice_pdf(request, invoice_id):
+    from .models import Invoice
+
+    invoice = Invoice.objects.get(pk=invoice_id)
+    html_string = render_to_string('billing/pdf_template.html', {'invoice': invoice})
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf_file = html.write_pdf()
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename=invoice_{invoice_id}.pdf'
+    return response
+
+
+
+

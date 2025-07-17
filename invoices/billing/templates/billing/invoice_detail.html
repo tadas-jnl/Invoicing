@@ -2,6 +2,7 @@
 {% block title %}Invoice {{ invoice.number }}{% endblock %}
 {% block content %}
 
+<a href="{% url 'billing:invoice_pdf' invoice.pk %}" class="btn btn-outline-primary">PDF</a>
 <a href="{% url 'billing:update_invoice' invoice.pk %}" class="btn btn-outline-primary">Update Header</a> 
 <a href="{% url 'billing:delete_invoice' invoice.pk %}" class="btn btn-danger">DELETE Invoice</a>
 <hr/>
@@ -23,7 +24,7 @@
                 <th style="width: 10%">Quantity</th>
                 <th style="width: 10%">Units</th>
                 <th style="width: 15%">Price</th>
-                <th style="width: 15%">Line total</th>
+                <th style="width: 15%">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -38,12 +39,24 @@
             <td>{{ item.line_total }} eur</td>
         </tr>
         {% endfor %}
+        {% if invoice.include_vat %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong>VAT:</strong></td>
+            <td><strong>{{ invoice.vat_amount }} eur</strong></td>
+        </tr>
+        {% endif %}
+        <tr>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td><strong>Invoice total:</strong></td>
             <td><strong>{{ invoice.total }} eur</strong></td>
+        </tr>
         </tbody>
     </table>
     {% else %}

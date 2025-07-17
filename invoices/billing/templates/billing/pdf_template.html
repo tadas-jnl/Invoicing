@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        .invoice-box {
+            width: 100%;
+        }
+
+        div.header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        p.header {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin: 0px;
+            font-size: 14px;
+        }
+
+        h5 {
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invoice-box">
+        <div class="header">INVOICE</div>
+        <div class="header">Series: <strong>{{ invoice.series }}</strong>, No.: <strong>{{ invoice.number }}</strong></div>
+        <p class="header">Date: <strong>{{ invoice.issue_date }}</strong></p>
+        <p class="header mb-3">To be paid until: <strong>{{ invoice.due_date }}</strong></p>
+
+        <div class="row">
+            <div class="col-6">
+                <p><strong>Seller: </strong></p>
+                <p class="mb-2"><i>{{ invoice.user.profile.name }}</i></p>
+                {% with profile=invoice.user.profile %}
+                    <p><strong>Address:</strong> {{ profile.address }}</p>
+                    {% if invoice.user.is_company and profile.company_code %}
+                        <p><strong>Company code:</strong> {{ profile.company_code }}</p>
+                    {% elif not invoice.user.is_company and profile.individual_code %}
+                        <p><strong>Individual code:</strong> {{ profile.individual_code }}</p>
+                    {% endif %}
+                    {% if profile.vat_code %}
+                        <p class="mb-2"><strong>VAT code:</strong> {{ profile.vat_code }}</p>
+                    {% endif %}
+                    
+                {% endwith %}
+                {% with bank=invoice.user.bank %}
+                    <p><strong>IBAN:</strong> {{ bank.iban }}</p>
+                    {% if bank.bank_name %}<p><strong>Bank name:</strong> {{ bank.bank_name }}</p>{% endif %}
+                    {% if bank.swift %}<p><strong>SWIFT:</strong> {{ bank.swift }}</p>{% endif %}
+                {% endwith %}
+            </div>
+            <div class="col-1"></div>
+            <div class="col-5">
+                <p><strong>Buyer: </strong></p>
+                <p class="mb-2"><i>{{ invoice.buyer.name }}</i></p>
+                {% if invoice.buyer.address %}<p><strong>Address:</strong> {{ invoice.buyer.address }}</p>{% endif %}
+                <p><strong>Pers/Company code:</strong> {{ invoice.buyer.code }}</p>
+                {% if invoice.buyer.vat_code %}
+                        <p class="mb-2"><strong>VAT code:</strong> {{ invoice.buyer.vat_code }}</p>
+                    {% endif %}
+            </div>
+        </div>
+    {% if invoice.items %}
+    <table class="table align-middle mt-5">
+        <thead>
+            <tr>
+                <th style="with: 5%">#</th>
+                <th style="width: 40%">Description</th>
+                <th style="width: 10%">Quantity</th>
+                <th style="width: 10%">Units</th>
+                <th style="width: 15%">Price (eur)</th>
+                <th style="width: 20%">Total (eur)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in invoice.items.all %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.units }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.line_total }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if invoice.include_vat %}
+    <h5 class="text-end">Subtotal: <strong>{{ invoice.subtotal }} eur</strong></h5>
+    <h5 class="text-end">VAT total: <strong>{{ invoice.vat_amount }} eur</strong></h5>
+    <h5 class="text-end">Total sum: <strong>{{ invoice.total }} eur</strong></h5>
+    {% else %}
+    <h5 class="text-end">Total sum: <strong>{{ invoice.total }} eur</strong></h5>
+    {% endif %}
+    </div>
+    {% else %}
+    No items added!
+    {% endif %}
+
+    <div class="fixed-bottom">
+        {% with profile=invoice.user.profile %}
+            {% if profile.phone %}<p>Phone: {{ profile.phone }}</p>{% endif %}
+            {% if profile.email %}<p>Email: {{ profile.email }}</p>{% endif %}
+        {% endwith %}
+    <div>
+</body>

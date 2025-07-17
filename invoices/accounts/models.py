@@ -36,6 +36,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    @property
+    def profile(self):
+        if hasattr(self, 'individual_profile'):
+            return self.individual_profile
+        elif hasattr(self, 'company_profile'):
+            return self.company_profile
+        return None
 
 
 class BaseProfile(models.Model):
@@ -49,7 +57,7 @@ class BaseProfile(models.Model):
 
 
 class CompanyProfile(BaseProfile):  
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="company_profile")
     name = models.CharField(verbose_name='Company name', max_length=200)
     company_code = models.CharField(verbose_name='Company code', max_length=20)
     vat_code = models.CharField(verbose_name='Tax payer code', max_length=20)
@@ -59,7 +67,7 @@ class CompanyProfile(BaseProfile):
 
 
 class IndividualProfile(BaseProfile):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='individual_profile')
     name = models.CharField(verbose_name='Full name', max_length=100)
     individual_code = models.CharField('Individual code', max_length=20, null=True, blank=True)
     vat_code = models.CharField(verbose_name='Tax payer code', max_length=20, null=True, blank=True)
@@ -69,7 +77,7 @@ class IndividualProfile(BaseProfile):
 
 
 class BankAccount(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='bank')
     bank_name = models.CharField(verbose_name='Bank name', max_length=20, null=True, blank=True)
     swift = models.CharField(verbose_name='Bank code (SWIFT)', max_length=10, null=True, blank=True)
     iban = models.CharField(verbose_name='iban', max_length=20)
