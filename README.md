@@ -21,7 +21,8 @@ Designed for small business use, personal billing, or as a base for future exten
 ## Status
 
 ⚠️ **Still in development.**  
-The app works, but the frontend is basic, and some features (e.g., VAT support, translations, client management) are planned for the future.
+The app works, but the frontend is basic, and more features and tweaks are planned for the future.
+This is my first Django project after academy, and i'm still working on it!
 
 ---
 
