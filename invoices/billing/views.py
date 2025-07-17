@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from weasyprint import HTML
+from num2words import num2words
 
 from .forms import BuyerForm, InvoiceForm, InvoiceItemForm
 from .models import Buyer, Invoice, InvoiceItem
@@ -190,7 +191,8 @@ def generate_invoice_pdf(request, invoice_id):
     from .models import Invoice
 
     invoice = Invoice.objects.get(pk=invoice_id)
-    html_string = render_to_string('billing/pdf_template.html', {'invoice': invoice})
+    amount_in_words = num2words(invoice.total(), to='currency', lang='en')
+    html_string = render_to_string('billing/pdf_template.html', {'invoice': invoice, 'amount_in_words': amount_in_words})
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     pdf_file = html.write_pdf()
     response = HttpResponse(pdf_file, content_type='application/pdf')
