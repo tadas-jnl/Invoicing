@@ -51,7 +51,7 @@ git clone https://github.com/tadas-jnl/Invoicing.git
 cd Invoicing
 ```
 
-2. **Create .env file inside Invoices/invoices/**
+2. **Create .env file inside Invoicing/invoices/**
 
 ```env
 DEBUG=True
