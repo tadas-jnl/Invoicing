@@ -62,6 +62,7 @@ DB_USER=your_db_username
 DB_PASSWORD=your_db_password
 DB_HOST=localhost
 DB_PORT=5432
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com', 'localhost', '127.0.0.1']
 ```
 
 3. **Create virtual environment and install dependencies**
