@@ -28,6 +28,10 @@ class InvoiceForm(ModelForm):
             ]),
         }
 
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['buyer'].queryset = Buyer.objects.filter(user=user)
 
 class InvoiceItemForm(ModelForm):
     class Meta:

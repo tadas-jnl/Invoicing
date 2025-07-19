@@ -67,6 +67,11 @@ class CreateInvoice(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
+    def get_form_kwargs(self):
+         kwargs = super().get_form_kwargs()
+         kwargs['user'] = self.request.user
+         return kwargs 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['var'] = 'Create'
@@ -95,6 +100,10 @@ class UpdateInvoice(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('billing:detail_invoice', kwargs={'pk': self.kwargs['pk']})
     
+    def get_form_kwargs(self):
+         kwargs = super().get_form_kwargs()
+         kwargs['user'] = self.request.user
+         return kwargs 
 
 class DetailInvoice(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Invoice

@@ -1,6 +1,10 @@
+# Django Invoicing App
 
 A simple but functional invoicing system built with Django.  
-Designed for small business use, personal billing, or as a base for future extensions.
+Designed for small business use, personal billing, or as a base for future extensions.  
+The invoice format is universal but tailored to Lithuanian invoice standards.
+
+This project is still in development. I created it to gain hands-on experience with a real-world Django application.
 
 ---
 
@@ -14,15 +18,15 @@ Designed for small business use, personal billing, or as a base for future exten
   - Automatic total calculation
   - PDF invoice generation (WeasyPrint)
 - Basic Bootstrap styling
-- English-first with Lithuanian formatting (e.g. dates, "Suma žodžiais")
+- Languages: English (more coming soon)
 
 ---
 
 ## Status
 
 ⚠️ **Still in development.**  
-The app works, but the frontend is basic, and more features and tweaks are planned for the future.
-This is my first Django project after academy, and i'm still working on it!
+The core functionality works, but the frontend is basic. More features, styling, and tweaks are planned.  
+This is my first Django project after completing my academy course, and I'm actively improving it.
 
 ---
 
@@ -30,11 +34,11 @@ This is my first Django project after academy, and i'm still working on it!
 
 - Python 3.x
 - Django
-- SQLite (for dev)
+- PostgreSQL
 - Bootstrap (minimal use)
 - Crispy forms
 - WeasyPrint (for PDF generation)
-- num2words (for amount in words)
+- num2words (for amount-in-words on invoices)
 
 ---
 
@@ -44,18 +48,23 @@ This is my first Django project after academy, and i'm still working on it!
 
 ```bash
 git clone https://github.com/tadas-jnl/Invoicing.git
-cd Invoice
+cd Invoices
 ```
 
-3. **Create .env file inside project folder (next to settings.py file!) with your secret key**
+2. **Create .env file inside Invoices/invoices/**
 
 ```env
-DEBUG = True
-SECRET_KEY = 'your-secret-key-here'
-DB_PATH = db.sqlite3
+DEBUG=True
+SECRET_KEY=your_secret_key
+DB_PATH=invoices.db
+DB_NAME=invoicedb
+DB_USER=your_db_username
+DB_PASSWORD=your_db_password
+DB_HOST=localhost
+DB_PORT=5432
 ```
 
-4. **Create virtual environment and install dependencies**
+3. **Create virtual environment and install dependencies**
 
 ```bash
 python -m venv .venv
@@ -63,15 +72,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. **Run migrations and create superuser**
+4. **Run migrations and create superuser**
 
 ```bash
-cd invoice
+cd invoices
 python manage.py migrate
 python manage.py createsuperuser
 ```
 
-4. **Run server**
+5. **Run development server**
 
 ```bash
 python manage.py runserver
