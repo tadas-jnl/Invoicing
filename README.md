@@ -48,7 +48,7 @@ This is my first Django project after completing my academy course, and I'm acti
 
 ```bash
 git clone https://github.com/tadas-jnl/Invoicing.git
-cd Invoices
+cd Invoicing
 ```
 
 2. **Create .env file inside Invoices/invoices/**
