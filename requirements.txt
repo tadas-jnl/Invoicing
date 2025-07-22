@@ -4,6 +4,7 @@ cffi==1.17.1
 crispy-bootstrap5==2025.6
 cssselect2==0.8.0
 Django==5.2.4
+django-axes==8.0.0
 django-crispy-forms==2.4
 docopt==0.6.2
 fonttools==4.59.0
