@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'billing',
     'crispy_forms',
     'crispy_bootstrap5',
+    'axes',
 ]
 
 MIDDLEWARE = [
+    'axes.middleware.AxesMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+AXES_FAILURE_LIMIT = 7  # Lock out after 7 tries
+AXES_COOLOFF_TIME = 1  # 1 hour lockout
+AXES_ONLY_ADMIN_SITE = True
+AXES_ONLY_USER_FAILURES = True
 
 ROOT_URLCONF = 'invoices.urls'
 

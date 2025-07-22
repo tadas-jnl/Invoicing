@@ -13,7 +13,7 @@ def signup_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)    
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')    
             return redirect('accounts:cprofile')
     else:
         form = CustomUserCreationForm()
@@ -62,7 +62,15 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 
 class CompanyProfileDetail(LoginRequiredMixin, DetailView):
     model = CompanyProfile
-    
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object=self.get_object()
+        except CompanyProfile.DoesNotExist:
+            return redirect(reverse('accounts:cprofile'))
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
     def get_object(self):
         return CompanyProfile.objects.get(user=self.request.user)
     
@@ -74,12 +82,23 @@ class CompanyProfileDetail(LoginRequiredMixin, DetailView):
             for field in self.object._meta.fields
             if field.name not in ['user', 'id']
         ]
-        context['bank_account'] = BankAccount.objects.get(user=self.request.user)
+        try:
+            context['bank_account'] = BankAccount.objects.get(user=self.request.user)
+        except BankAccount.DoesNotExist:
+            context['bank_account'] = None
         return context
     
     
 class IndividualProfileDetail(LoginRequiredMixin, DetailView):
     model = IndividualProfile
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object=self.get_object()
+        except IndividualProfile.DoesNotExist:
+            return redirect(reverse('accounts:cprofile'))
+        context =self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_object(self):
         return IndividualProfile.objects.get(user=self.request.user)
@@ -92,7 +111,10 @@ class IndividualProfileDetail(LoginRequiredMixin, DetailView):
             for field in self.object._meta.fields
             if field.name not in ['user', 'id']
         ]
-        context['bank_account'] = BankAccount.objects.get(user=self.request.user)
+        try:
+            context['bank_account'] = BankAccount.objects.get(user=self.request.user)
+        except BankAccount.DoesNotExist:
+            context['bank_account'] = None
         return context
     
 

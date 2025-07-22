@@ -31,7 +31,7 @@ reg_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin-panel/', admin.site.urls),
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),
     path('billing/', include('billing.urls')),
