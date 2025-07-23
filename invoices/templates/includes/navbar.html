@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top frosty">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'core:index' %}">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,11 +8,11 @@
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'billing:list_invoices' %}">Invoices</a>
+          <a class="nav-link" aria-current="page" href="{% url 'billing:list_invoices' %}">Invoices</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'billing:list_buyers' %}">Buyers</a>
+          <a class="nav-link" href="{% url 'billing:list_buyers' %}">Clients</a>
         </li>
         {% endif %}
         <li class="nav-item dropdown">
@@ -35,8 +35,8 @@
                     <button type="submit" class="dropdown-item">Logout</button>
                 </form>
             {% else %}
-            <li><a class="dropdown-item" href="{% url 'login' %}">LogIn</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}">SignUp</a></li>
+            <li><a class="dropdown-item" href="{% url 'login' %}">Log In</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}">Sign Up</a></li>
             {% endif %}
           </ul>
         </li>

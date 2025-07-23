@@ -4,3 +4,5 @@ __pycache__
 *.pyc
 .env
 invoices.db
+frontend/node_modules
+run_sass
