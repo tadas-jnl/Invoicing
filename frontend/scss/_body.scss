@@ -1,0 +1,20 @@
+body {
+    background: #e0eafc; /* light frosty gradient */
+    background: linear-gradient(to right, #dbebff, #ffffff);
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+h1 {
+    font-weight: 500;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: #c1b6ff;
+    text-decoration: none;
+}

@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}List Invoices{% endblock %}
 {% block content %}
-<a href="{% url 'billing:create_invoice' %}" class="btn btn-outline-primary my-3">Create New Invoice</a>
-<h3>Your invoices</h3>
-{% for invoice in object_list %}
-    <p>NO: {{ invoice.number }} - {{ invoice.buyer }}. Total: {{ invoice.total }} <a href="{% url 'billing:detail_invoice' invoice.pk %}">More Details..</a> </p>
-{% endfor %}
 
+<div class="align-items-center justify-content-center flex">
+    <div class="text-center frosty-container mx-auto my-3">
+        
+        <a href="{% url 'billing:create_invoice' %}" class="btn text-info my-3">Create New Invoice</a>
+        <h3>Your invoices</h3>
+        <hr class="w-25 mx-auto">
+        {% for invoice in object_list %}
+            <p>NO: {{ invoice.number }} - <strong><i>{{ invoice.buyer }}</i></strong>. Total: {{ invoice.total }} <a href="{% url 'billing:detail_invoice' invoice.pk %}">More Details..</a> </p>
+            <hr class="w-50 mx-auto">
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

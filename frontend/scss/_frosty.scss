@@ -12,3 +12,14 @@
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
   color: #fff;
 }
+
+.frosty-container {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2rem 3rem;
+  max-width: 700px;
+  color: #fff;
+}

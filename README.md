@@ -6,6 +6,7 @@ The invoice format is universal but tailored to Lithuanian invoice standards.
 
 This project is still in development. I created it to gain hands-on experience with a real-world Django application.
 
+Deployed at https://billmaker.eu
 ---
 
 ## Features
@@ -35,10 +36,7 @@ This is my first Django project after completing my academy course, and I'm acti
 - Python 3.x
 - Django
 - PostgreSQL
-- Bootstrap (minimal use)
-- Crispy forms
-- WeasyPrint (for PDF generation)
-- num2words (for amount-in-words on invoices)
+- HTML / CSS / Bootstrap
 
 ---
 
