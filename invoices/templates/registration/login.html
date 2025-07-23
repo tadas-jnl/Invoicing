@@ -2,14 +2,18 @@
 {% block title %}Login{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
-<h3>Login</h3>
-<form method='post'>
-{% csrf_token %}
-{{ form|crispy }}
-<button type="submit" class="btn btn-outline-success">Login</button>
-<p class="my-3">Forgot your <a href="{% url 'password_reset' %}">password</a>?</p>
-</form>
 
+<div class="align-items-center justify-content-center flex">
+    <div class="text-center frosty-container mx-auto my-3">
+        <h3>Login</h3>
+        <form method='post'>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-outline-info">Login</button>
+        <p class="my-3">Forgot your <a href="{% url 'password_reset' %}">password</a>?</p>
+        </form>
+    </div>
+</div>
 
 
 {% endblock %}

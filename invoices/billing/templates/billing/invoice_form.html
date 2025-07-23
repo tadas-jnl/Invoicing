@@ -2,13 +2,15 @@
 {% block title %}{{ var }} invoice{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
-
-<h3>{{ var }} invoice</h3>
-<form method='post'>
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-outline-primary">Confirm invoice {{ var }}</button>
-</form>
-    
+<div class="align-items-center justify-content-center flex">
+    <div class="text-start frosty-container mx-auto my-3">
+        <h3>{{ var }} invoice</h3>
+        <form method='post'>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-outline-info">Confirm invoice {{ var }}</button>
+        </form>
+    </div>
+</div>     
 
 {% endblock %}

@@ -3,11 +3,15 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-<h2>Update profile form</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+<div class="align-items-center justify-content-center flex">
+    <div class="text-start frosty-container mx-auto my-5">
+        <h2>Update profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-outline-info">Update</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
