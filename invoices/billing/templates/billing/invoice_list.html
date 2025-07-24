@@ -9,7 +9,7 @@
         <h3>Your invoices</h3>
         <hr class="w-25 mx-auto">
         {% for invoice in object_list %}
-            <p>NO: {{ invoice.number }} - <strong><i>{{ invoice.buyer }}</i></strong>. Total: {{ invoice.total }}  <a href="{% url 'billing:detail_invoice' invoice.pk %}" class="btn btn-outline-info">Details..</a> </p>
+            <p>Client: "<strong><i>{{ invoice.buyer.name }}</i></strong>"  |  No.: {{ invoice.number }}  |  Total: {{ invoice.total }}  <a href="{% url 'billing:detail_invoice' invoice.pk %}" class="btn btn-outline-info">Details..</a> </p>
             <hr class="w-50 mx-auto">
         {% endfor %}
     </div>

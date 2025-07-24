@@ -11,6 +11,7 @@
             {{ profile_form|crispy }}
             {{ bank_form|crispy }}
             <button type="submit" class="btn btn-outline-info">Create</button>
+            <a href="{% url "accounts:user_delete" user.pk %}" class="btn btn-danger">DELETE Account</a>
         </form>
     </div>
 </div>

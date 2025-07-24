@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from .forms import CustomUserCreationForm, CompanyProfileForm, IndividualProfileForm, BankAccountForm
-from .models import CompanyProfile, IndividualProfile, BankAccount
+from .models import CompanyProfile, IndividualProfile, BankAccount, User
 
 # Create your views here.
 
@@ -147,3 +147,14 @@ class BankAccountUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('accounts:company_profile') if self.request.user.is_company else reverse('accounts:individual_profile')
 
 
+class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = User
+    success_url = '/'
+
+    def test_func(self):
+        return self.get_object() == self.request.user
+    
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('confirm_text') != 'DELETE':
+            return self.get(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)

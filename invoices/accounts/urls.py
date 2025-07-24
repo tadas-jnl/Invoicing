@@ -5,6 +5,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('sign-up/', views.signup_view, name='sign_up'),
+    path('<int:pk>/delete/', views.UserDeleteView.as_view(), name='user_delete'),
     path('profile/create/', views.ProfileCreate.as_view(), name='cprofile'),
     path('cprofile/', views.CompanyProfileDetail.as_view(), name='company_profile'),
     path('iprofile/', views.IndividualProfileDetail.as_view(), name='individual_profile'),

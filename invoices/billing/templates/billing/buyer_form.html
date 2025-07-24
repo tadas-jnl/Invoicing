@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}{{ var }} buyer{% endblock %}
+{% block title %}{{ var }} Client{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="align-items-center justify-content-center flex">
     <div class="text-start frosty-container mx-auto my-3">
-        <h3>{{ var }} buyer </h3>
+        <h3>{{ var }} Client </h3>
         <form method='POST'>
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-outline-info">{{ var }} Buyer</button>
+            <button type="submit" class="btn btn-outline-info">{{ var }} Client</button>
         </form>
     </div>
 </div>

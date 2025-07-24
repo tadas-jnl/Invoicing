@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}DELETE Account{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="frosty-container">
+        <h3>DELETE {{ user.email }} Account?</h3>
+
+        <form method="post" action="{% url 'accounts:user_delete' user.pk %}">
+            {% csrf_token %}
+            <p>This action is permanent and will delete your account along with all associated data including invoices!</p>
+            <p>Please make sure you downloaded all the invoices before deleting them together with your account.</p>
+            <label>Type "<strong>DELETE</strong>" to confirm:</label>
+            <input type="text" name="confirm_text" class="form-control mb-3" required>
+            <button type="submit" class="btn btn-danger">Permanently DELETE Account</button>
+            {% if object.is_company %}
+            <a href="{% url 'accounts:company_profile' %}" class="btn btn-outline-info">Go Back</a>
+            {% else %}
+            <a href="{% url 'accounts:individual_profile' %}" class="btn btn-outline-info">Go Back</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}
