@@ -21,7 +21,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {% if user.is_authenticated %}
-            User
+            User panel
             {% else %}
             Account
             {% endif %}
@@ -44,6 +44,7 @@
           </ul>
         </li>
       </ul>
+      {% if user.is_authenticated %}<span class="text-info ms-auto">Logged in as: {{ user.email }}</span>{% endif %}
     </div>
   </div>
 </nav>
