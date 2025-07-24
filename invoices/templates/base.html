@@ -10,9 +10,10 @@
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
+  {% load static %}
   {% include 'includes/navbar.html' %}
-    <div class="container-fluid justify-content-center" style="margin-top: 70px">
-      <h1 class="text-center">Free Invoicing App<h2>
+    <div class="text-center" style="margin-top: 70px">
+      <img src="{% static 'images/logo.png' %}" class="d-bloc mx-auto" alt="logo" style="max-width:15%; height:auto">
         <hr class="w-25 mx-auto">
     </div>
     <div class="container my-3">
