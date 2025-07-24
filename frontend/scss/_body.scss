@@ -1,6 +1,6 @@
 body {
-    background: #e0eafc; /* light frosty gradient */
-    background: linear-gradient(to right, #dbebff, #ffffff);
+    background: url('/static/images/bg.png') repeat-y center center;
+    background-size: cover;
     min-height: 100vh;
     align-items: center;
     justify-content: center;
