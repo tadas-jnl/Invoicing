@@ -6,7 +6,7 @@ The invoice format is universal but tailored to Lithuanian invoice standards.
 
 This project is still in development. I created it to gain hands-on experience with a real-world Django application.
 
-Deployed at https://billmaker.eu
+Was Deployed at https://billmaker.eu, but i cancelled domain for now
 ---
 
 ## Features
